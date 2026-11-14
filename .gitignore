@@ -10,7 +10,7 @@ venv/
 env/
 
 # Training artifacts
-checkpoints/*.pt
+checkpoints/
 datasets/
 *.log
 
