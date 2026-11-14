@@ -138,6 +138,28 @@ recompute** (greedy), validating the KV-cache implementation.
 loop (`--batch-size`, `--steps`, `--eval-interval`) options. See
 `python -m nanolm.train --help`.
 
+## Desktop app — business-sales modeling
+
+`desktop_app.py` is a native **Tkinter desktop app** that ties the whole stack to
+a real, publicly available *business-sales* dataset (seaborn's `taxis`: 6,433
+revenue transactions with a timestamp, payment type, distance and amount). It:
+
+* downloads + loads the dataset,
+* trains the **from-scratch transformer** on a modeling corpus
+  (`amount|day|hour|payment|distance` per sale) built in `nanolm/sales_data.py`,
+* **generates synthetic sales records** (transformer sampling),
+* shows **analytics** + a transparent daily-revenue **forecast** + a bar chart.
+
+```bash
+python desktop_app.py          # or: bash run_app.sh
+```
+
+Click **Load data → Train model → Generate sales / Analytics**. Training and
+generation run in a background thread; loss and results stream into the log
+pane. The forecast is a transparent OLS trend (clearly *analytic*, not a learned
+prediction); the transformer itself *models* the sales-record distribution. Swap
+`nanolm/sales_data.py`'s URL to use a different sales CSV.
+
 ## Train on Tiny Shakespeare (this repo)
 
 Download the well-known char-level corpus (Karpathy's `char-rnn` *Tiny
