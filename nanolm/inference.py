@@ -162,6 +162,7 @@ class ModelRunner:
         add_eos_to_prompt: bool = False,
         stop_at_eos: bool = True,
         repetition_penalty: float = 1.0,
+        stop_at: Optional[str] = "\n\n",
     ) -> str:
         idx = self._make_ids(prompt, add_eos=add_eos_to_prompt)
         if idx.numel() == 0:
@@ -176,7 +177,7 @@ class ModelRunner:
             eos_token_id=self.tokenizer.eos_id if stop_at_eos else None,
             repetition_penalty=repetition_penalty,
         )
-        return self.tokenizer.decode(out[0].tolist(), stop_at="\n\n")
+        return self.tokenizer.decode(out[0].tolist(), stop_at=stop_at)
 
     @torch.no_grad()
     def complete_ids(
